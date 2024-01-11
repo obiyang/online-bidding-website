@@ -292,7 +292,7 @@ def payment_view(request, auction_id):
             'currency': 'usd',  # 指定货币类型，例如 USD
         }
         # 微服务的 URL，替换为您的 NestJS 微服务 URL
-        microservice_url = 'https://stripe-payment-microservice-dot-my-project-00274059.uw.r.appspot.com/payments/create-intent'
+        microservice_url = ''
 
         # 向微服务发送请求
         response = requests.post(microservice_url, json=payment_data)
@@ -382,14 +382,14 @@ def daily_report_view(request):
     return render(request, 'daily_report.html', context)
 
 # Add your OpenAI API key
-openai.api_key = "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"
+openai.api_key = ""
 
 # Setting up database attributes
 DB_CONFIG = {
-    'host': "34.127.78.101",
-    'user': "cai",
+    'host': "",
+    'user': "",
     'password': "",
-    'database': "project-group1-db"
+    'database': ""
 }
 
 # Function to execute SQL query
@@ -606,11 +606,11 @@ CREATE TABLE `django_session` (
     return render(request, 'chat_bot4.html')
 
 # 设置 OpenAI API 和数据库配置
-openai.api_key = "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"
-SERVER_URL = "34.127.78.101"
-DB = "project-group1-db"
-USER_NAME = "BYANG"
-PASSWORD = "Yxswp660220."
+openai.api_key = ""
+SERVER_URL = ""
+DB = ""
+USER_NAME = ""
+PASSWORD = ""
 
 @login_required
 def chat(request):
