@@ -98,9 +98,9 @@ if os.getenv('GAE_APPLICATION', None):
         "default": {
             "ENGINE": "django.db.backends.mysql",
             "NAME": "onlinebiddingdemo",
-            "USER": "byang",
-            "PASSWORD": "660220",
-            "HOST": "/cloudsql/my-project-00274059:us-west1:onlinebiddingdemo",
+            "USER": "",
+            "PASSWORD": "",
+            "HOST": "",
         }
     }
 
@@ -110,9 +110,9 @@ else:
         "default": {
             "ENGINE": "django.db.backends.mysql",
             "NAME": "onlinebiddingdemo",
-            "USER": "byang",
-            "PASSWORD": "660220",
-            "HOST": "34.118.199.201",
+            "USER": "",
+            "PASSWORD": "",
+            "HOST": "",
             "PORT": "3306",
         }
     }
@@ -177,7 +177,7 @@ if os.getenv('GAE_ENV', '').startswith('standard'):
 else:
     # 非 GAE 环境，比如本地开发环境
     # path need to change in order to run locally
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/binyang/Documents/group1_folder 2/db-group1-402300-ca03e56dc003.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = ''
 
 LOGGING = {
     'version': 1,
