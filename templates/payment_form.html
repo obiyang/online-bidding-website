@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Payment for Auction: {{ auction.name }}</h2>
+  
+  <form id="payment-form" method="post">
+    {% csrf_token %}
+    <div id="card-element">
+      <!-- Stripe Elements 将在这里创建信用卡输入字段 -->
+    </div>
+    <button type="submit" class="btn btn-success">Make Payment</button>
+  </form>
+
+  <div class="check-payment-info">
+    <p>If you prefer to pay by check, please send your check to the following address:</p>
+    <p><strong>123 Auction Street, Bidder's Paradise, AB 12345, Auctionland</strong></p>
+  </div>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    var stripe = Stripe('pk_test_51OVhpuCzMBEFWww8mh8ztGzS8oqTAFmoxPUZfdkWjEb9CWdKfYqZAx1QJAE0SIhYn2U8coMM4YiHajXYPLFBJBR700X3Pelul7');
+    var elements = stripe.elements();
+    var card = elements.create('card');
+    card.mount('#card-element');
+
+    var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // 从 Stripe Elements 获取信用卡信息
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // 处理错误
+      console.log(result.error.message);
+    } else {
+      // 向 Django 后端发送 token 和其他必要信息
+      sendPaymentDataToBackend(result.token);
+    }
+  });
+});
+
+function sendPaymentDataToBackend(token) {
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+  
+  // 提交表单到 Django 后端
+  form.submit();
+}
+
+  </script>
+{% endblock %}
+

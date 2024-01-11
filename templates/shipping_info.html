@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Shipping Information for Auction: {{ auction.name }}</h2>
+  {% if shipping_info %}
+    <p>Shipping Status: {{ shipping_info.shipping_status }}</p>
+    {% if shipping_info.ups_tracking_number %}
+      <p>UPS Tracking Number: {{ shipping_info.ups_tracking_number }}</p>
+    {% else %}
+      <p>UPS Tracking Number not available yet.</p>
+    {% endif %}
+  {% else %}
+    <p>No shipping information available.</p>
+  {% endif %}
+
+  <!-- 添加返回用户个人资料页的蓝色按钮 -->
+  <a href="{% url 'user_profile' %}" class="btn btn-primary" style="color: blue;">Return to User Profile</a>
+{% endblock %}
+

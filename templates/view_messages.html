@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+  
+  <!-- Display received messages -->
+  <h2 style="font-weight: bold">Received Messages From Others:</h2>
+  {% for message in received_from_others %}
+    <p>
+        -Message#{{ message.id}}-----
+        {{ message.content }} - from {{ message.sender }}
+        - Auction ID: #<a href="{% url 'auction_detail' message.auction.id %}" class="text-blue-500">{{message.auction.id}}</a>
+        - Auction name: {{message.auction.name}}
+        - on {{ message.created_at}}
+    </p>
+  {% endfor %}
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+  <h2 style="font-weight: bold">Received Messages From Admin:</h2>
+  {% for message in received_from_admin %}
+    <p>
+        -Message#{{ message.id}}-----
+        {{ message.content }} - from {{ message.sender }}
+        - Auction ID: #<a href="{% url 'auction_detail' message.auction.id %}" class="text-blue-500">{{message.auction.id}}</a>
+        - Auction name: {{message.auction.name}}
+        - on {{ message.created_at}}
+    </p>
+  {% endfor %}
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+
+  <h2 style="font-weight: bold">Sent Messages</h2>
+  <!-- Display sent messages -->
+  {% for message in sent_messages %}
+    <p>
+        -Message#{{ message.id}}-----
+        {{ message.content }} - to {{ message.receiver }}  
+        - Auction ID: #<a href="{% url 'auction_detail' message.auction.id %}" class="text-blue-500">{{message.auction.id}}</a> 
+        - Auction name: {{message.auction.name}}
+        - on {{ message.created_at}}
+    </p>
+  {% endfor %}
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+  <a href="{% url 'auction' %}" class="text-blue-500">Back to Auction List</a>
+{% endblock %}

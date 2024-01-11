@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        input, textarea, select {
+            border: 1px solid black;
+        }
+    </style>
+<h2>Create A New Auction</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form.errors %}
+    <div class="form-errors">
+        {{ form.errors }}
+    </div>
+    {% endif %}
+    
+    {{ form.as_p }}
+    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+        Create Auction
+    </button>
+</form>
+
+<div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+<a href="{% url 'auction' %}" class="text-blue-500">Back to Auction List</a>
+{% endblock %}

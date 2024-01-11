@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>group1 auction</title>
+    {% load static %}
+    <link href="{% static 'group1_folder 2/css/custom_fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'auction_home.css' %}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 添加自定义样式 */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: inline;
+        }
+        nav a {
+            color: #4d65ff;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        .mx-auto {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}</p>
+                <ul><a href="{% url 'user_profile' %}">User Profile</a></ul>
+                <ul><a href="{% url 'view_messages' %}">View My Messages</a></ul>
+                <ul><a href="{% url 'logout' %}">Logout</a></ul>
+            {% else %}
+                <ul><a href="{% url 'login' %}">Login</a></ul>
+                <ul><a href="{% url 'register' %}">Register</a></ul>
+            {% endif %}
+        </nav>
+    </header>
+    <div class="mx-auto max-w-5xl px-4 py-4">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

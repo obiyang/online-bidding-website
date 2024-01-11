@@ -1,0 +1,19 @@
+<!-- templates/chat_bot.html -->
+<form method="post" action="{% url 'chat_bot' %}">
+    {% csrf_token %}
+    <textarea name="query" placeholder="Enter your query"></textarea>
+    <button type="submit">Generate SQL Query</button>
+</form>
+
+{% if sql_query %}
+    <p>Generated SQL Query: {{ sql_query }}</p>
+{% endif %}
+
+{% if results %}
+    <p>Results:</p>
+    <ul>
+        {% for row in results %}
+            <li>{{ row }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    input, textarea, select {
+        border: 1px solid black;
+    }
+</style>
+
+<h3 class="text-3xl text-grey-900">Auction name: {{ auction.name }}</h3>
+<h4>Auction ID: #{{ auction.id }}</h4>
+<img src="{{ auction.image.url }}" alt="" style="max-width: 200px; max-height: 150px;">
+<ul> highest bid:{{auction.highest_bid}}</ul>
+<ul> reserve price:{{auction.reserve_price}}</ul>
+<ul> status:{{auction.status}}</ul>
+<ul> description:{{auction.description}}</ul> 
+<ul> seller: <a href="{% url 'user_profile_with_username' auction.seller.username %}" class="text-blue-500">{{auction.seller}}</a></ul>
+<ul><a href="{% url 'send_message' auction.id %}" class="text-blue-500">Send a message about this auction </a></ul>
+<!-- Facebook分享链接，字体颜色为蓝色 -->
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="facebook-share-button" style="color: blue;">
+    Share on Facebook
+</a>
+<ul> auction close on : {{auction.end_time}}</ul>
+{% if winner %}
+<ul> winner:<a href="{% url 'user_profile_with_username' auction.winner.username %}" class="text-blue-500">{{auction.winner}}</a></ul>
+{% endif %}
+<div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+{% if auction.status == 'Active' %}
+    <form action="" method="post" style="margin-top: 10px;">
+        {% csrf_token %}
+        {{ bid_form.as_p }}
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Place Bid
+        </button>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </form>
+{% else %}
+    <p>This auction is {{ auction.status|lower }}.</p>
+{% endif %}
+
+{% if auction.status == 'Completed' %}
+    
+    {% for rating in auction.ratings.all %}
+        <p>{{ rating.rated_by }} rated: {{ rating.rating }} - "{{ rating.comment }}"</p>
+    {% endfor %}
+
+    {% if show_rating_form %}
+    <form action="{% url 'submit_rating' auction.id %}" method="post">
+        {% csrf_token %}
+        {{ rating_form.as_p }}
+        <button type="submit" class="text-blue-500">Submit Rating</button>
+    </form>
+    {% endif %}
+{% endif %}
+
+<div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+<a href="{% url 'auction' %}" class="text-blue-500">Back to Auction List</a>
+
+{% endblock content %}

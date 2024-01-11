@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Payment Successful</h2>
+  <p>Your payment for the auction "{{ auction.name }}" has been successfully processed.</p>
+
+  <!-- 添加返回用户个人资料页的按钮 -->
+  <a href="{% url 'user_profile' %}" class="btn btn-primary">Return to User Profile</a>
+{% endblock %}

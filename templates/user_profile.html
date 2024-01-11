@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 添加一个容器来放置右上角的按钮 -->
+<div style="position: relative;">
+  <a href="{% url 'chat' %}" class="btn btn-primary" style="position: absolute; right: 0; top: 0; margin: 10px; color: blue;">Chat Bot</a>
+
+  <h2>User Profile</h2>
+  <p>Username: {{ profile_user.username }}</p>
+  <p>Email: {{ profile_user.email }}</p>
+  <p>Average Rating: {{ average_rating }}</p>
+
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+
+  <h3>Bid History: </h3>
+  <h4>Auctions Bid On:</h4>
+  {% for bid in user_bids %}
+    <p>
+      Auction #<a href="{% url 'auction_detail' bid.auction.id %}" class="text-blue-500">{{bid.auction.id}}</a>
+      ---{{ bid.auction.name }} - Bid Amount: {{ bid.amount }} - Bid Time: {{ bid.time }}
+    </p>
+  {% empty %}
+    <p>No bids placed yet.</p>
+  {% endfor %}
+
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+
+  <h4>Auctions Won</h4>
+  {% for auction in auctions_won %}
+    <p>
+      Auction #<a href="{% url 'auction_detail' auction.id %}" class="text-blue-500">{{auction.id}}</a>
+      ---{{ auction.name }} - Winning Bid: {{ auction.highest_bid }} - Auction End: {{ auction.end_time }}
+      <a href="{% url 'payment_view' auction.id %}" class="text-blue-500">Payment</a>
+<a href="{% url 'shipping_view' auction.id %}" class="text-blue-500">Shipping</a>
+    </p>
+  {% empty %}
+    <p>No auction Won yet.</p>  
+  {% endfor %}
+
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+
+  <h4>Auctions Sold</h4>
+  {% for auction in auctions_sold %}
+    <p>
+      Auction #<a href="{% url 'auction_detail' auction.id %}" class="text-blue-500">{{auction.id}}</a>
+      ---{{ auction.name }} - Winning Bid: {{ auction.highest_bid }} - Auction End: {{ auction.end_time }}
+    </p>
+  {% empty %}
+    <p>No auction Sold yet.</p>
+  {% endfor %}
+
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+
+  <!-- 添加报告按钮 -->
+  <a href="{% url 'weekly_report_view' %}" class="text-blue-500">Weekly Report</a>
+<a href="{% url 'daily_report_view' %}" class="text-blue-500">Daily Report</a>
+
+
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+
+  <ul><a href="{% url 'auction' %}" class="text-blue-500">Back to Auction List</a></ul>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Bot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* 添加样式以调整文本区域的大小 */
+        textarea {
+            width: 100%; /* 设置初始宽度 */
+            height: 100px; /* 设置初始高度 */
+            resize: both; /* 允许水平和垂直调整大小 */
+            overflow: auto; /* 添加滚动条 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Bot</h1>
+    <form id="chat-form" method="post">
+        {% csrf_token %}
+        <textarea name="message" id="message-input" placeholder="Input your query..."></textarea>
+        <input type="submit" value="send">
+    </form>
+    <div id="chat-box"></div>
+
+    <!-- 在这里添加返回User Profile的按钮 -->
+    <a href="{% url 'user_profile' %}" class="btn btn-primary">Return to User Profile</a>
+
+    <script>
+        $('#chat-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'chat' %}',
+                data: {
+                    'message': $('#message-input').val(),
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(response) {
+                    $('#chat-box').append('<p>SQL Query: ' + response.query + '</p>');
+                    $('#chat-box').append('<p>Results: ' + response.results.join(', ') + '</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

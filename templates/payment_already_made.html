@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Payment for Auction: {{ auction.name }}</h2>
+  <p>You have already made the payment.</p>
+
+  <!-- 添加返回用户个人资料页的按钮 -->
+  <a href="{% url 'user_profile' %}" class="btn btn-primary" style="color: blue;">Return to User Profile</a>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/Montserrat-Regular.ttf') format('truetype');
+    /* 如果有多种格式的字体文件，可以继续添加src属性 */
+}
+body {
+    font-family: 'YourFontName', sans-serif;
+}
+

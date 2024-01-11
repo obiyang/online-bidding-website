@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Chat with Assistant</h1>
+    <textarea id="user_input"></textarea>
+    <button id="send_button">Send</button>
+    <p id="response"></p>
+
+    <script>
+        $(document).ready(function(){
+            $("#send_button").click(function(){
+                var userInput = $("#user_input").val();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'chat_bot' %}",
+                    data: {
+                        user_input: userInput,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function(data){
+                        $("#response").text(data.reply);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

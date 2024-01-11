@@ -1,0 +1,15 @@
+# [START django_app]
+runtime: python39
+
+handlers:
+# 配置 Google App Engine 以服务应用的 static 目录中的文件。
+- url: /static
+  static_dir: static/
+
+# 这个处理器将所有未被上述处理器捕获的请求路由到您的主应用程序。
+# 当定义了静态路由时需要这个处理器，但如果没有定义静态文件，则可以省略
+# （连同整个 handlers 部分）。
+- url: /.*
+  script: auto
+# [END django_app]
+

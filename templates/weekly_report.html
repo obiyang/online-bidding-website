@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Report from {{ start_date|date:"Y-m-d" }} to {{ end_date|date:"Y-m-d" }}</h1>
+<p>Total Auctions Created: {{ total_created }}</p>
+<p>Total Amount from Created Auctions: {{ total_amount_created }}</p>
+<p>Total Auctions Completed: {{ total_completed }}</p>
+<p>Total Amount from Completed Auctions: {{ total_amount_completed }}</p>
+{% endblock %}

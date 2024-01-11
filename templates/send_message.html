@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Send Message regarding Auction: {{ auction.name }}</h2>
+  <h2>Auction ID: #{{auction.id}}</h2>
+  
+ 
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+        Send Message
+    </button>
+  </form>
+  <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+  <a href="{% url 'auction' %}" class="text-blue-500">Back to Auction List</a>
+{% endblock %}

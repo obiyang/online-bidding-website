@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+     <html lang="en">
+     <head>
+      <title>Group1 Project</title>
+     </head>
+     <body>
+      <h1> Charm and Chic</h1>
+      <div class="bidding-section" style="margin-top: 20px; border: 1px solid #000000; padding: 1px; background-color: #000000;"></div>
+     <a href="{% url 'auction' %}" class="text-blue-500">Go to Auction House</a>
+
+     {% if user.is_authenticated and user.is_staff %}
+        <ul>
+        <a href="{% url 'admin:index' %}" class="text-blue-500">Admin Dashboard</a>
+        </ul>
+     {% endif %}
+     
+     
+
+     </body>
+     </html>

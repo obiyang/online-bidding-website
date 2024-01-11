@@ -1,0 +1,11 @@
+.auctions-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;  /* 或者您选择的间距 */
+}
+
+.auction-item {
+    flex: 1;
+    min-width: 300px; /* 或者您选择的最小宽度 */
+    /* 其他样式，如边距、填充等 */
+}
